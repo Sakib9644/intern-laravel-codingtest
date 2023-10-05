@@ -29,6 +29,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/products', [ProductController::class, 'index'])->name('products.show');
    
+        
+    Route::middleware('auth')->group(function () {
+        // ...
+    
+        Route::get('/products/filter', [ProductController::class, 'filterProducts'])->name('products.filter');
+        Route::post('/products/search', [ProductController::class, 'filterProducts'])->name('products.search'); // Change the route name to 'products.search'
+    
+        // ...
+    });
+    
+   
 });
 
 require __DIR__.'/auth.php';

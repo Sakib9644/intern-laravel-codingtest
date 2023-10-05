@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 
 class ProductController extends Controller
 {
@@ -30,26 +31,26 @@ class ProductController extends Controller
          * @param  Request  $request
          * @return \Illuminate\Http\Response
          */
-        public function searchProduct(Request $request)
+       
+
+        // ...
+        
+        public function filterProducts(Request $request): JsonResponse
         {
-            // Get the search keyword from the request
             $keyword = $request->input('keyword');
         
-            // Initialize the query builder
             $query = Product::query();
         
-            // Check if a keyword was provided
             if ($keyword) {
                 $query->where(function ($query) use ($keyword) {
                     $query->where('name', 'like', '%' . $keyword . '%')
-                          ->orWhere('description', 'like', '%' . $keyword . '%');
+                        ->orWhere('description', 'like', '%' . $keyword . '%');
                 });
             }
         
-            // Get the filtered products
             $products = $query->get();
         
-            // Return the search results to the view
-            return view('product.search', compact('products', 'keyword'));
+            return response()->json(['products' => $products]);
         }
+        
     }
