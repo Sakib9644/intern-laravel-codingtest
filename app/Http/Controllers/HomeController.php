@@ -12,8 +12,9 @@ class HomeController extends Controller
     /**
      * Display the user's dashboard.
      */
-    public function showDashboard(Request $request): View
+    public function showDashboard(Request $request)
     {
+        // dd($request);
         $aboutusContent = $this->about_webasesolution();
         return view('dashboard', [
             'aboutusContent' => $aboutusContent,
@@ -26,10 +27,11 @@ class HomeController extends Controller
         // Specify the URL to scrape
         $url = "https://webase.com.bd/about-us";
     
-        // Create a Goutte client
-        $client = new Client(HttpClient::create(['timeout' => 60]));
+        
     
         try {
+            // Create a Goutte client
+        $client = new Client(HttpClient::create(['timeout' => 60]));
             // Fetch the web page content
             $crawler = $client->request('GET', $url);
     

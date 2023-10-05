@@ -16,14 +16,17 @@
                     <script>
                         function removeElements() {
                             var elementsToRemove = ['webase-nav', 'page-title-area', 'footer-section'];
-                            
+
                             elementsToRemove.forEach(function(className) {
                                 var elements = document.getElementsByClassName(className);
                                 for (var i = elements.length - 1; i >= 0; i--) {
-                                    elements[i].remove();
+                                    if (elements[i] && elements[i].parentNode) {
+                                        elements[i].parentNode.removeChild(elements[i]);
+                                    }
                                 }
                             });
                         }
+
                         removeElements();
                     </script>
                 </div>
